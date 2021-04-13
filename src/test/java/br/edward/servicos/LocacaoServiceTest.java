@@ -2,6 +2,8 @@ package br.edward.servicos;
 
 import static br.edward.exceptions.matchers.MatchersProprios.caiEm;
 import static br.edward.exceptions.matchers.MatchersProprios.caiNumaSegunda;
+import static br.edward.exceptions.matchers.MatchersProprios.ehHoje;
+import static br.edward.exceptions.matchers.MatchersProprios.ehHojeComDiferencaDias;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -24,7 +26,6 @@ import br.edward.entidades.Locacao;
 import br.edward.entidades.Usuario;
 import br.edward.exceptions.FilmeSemEstoqueException;
 import br.edward.exceptions.LocadoraException;
-import br.edward.exceptions.matchers.MatchersProprios;
 import br.edward.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -57,8 +58,10 @@ public class LocacaoServiceTest {
 		locacao = service.alugarFilme(usuario, filmes);
 		//verificacao
 		error.checkThat(locacao.getValor(), is(not(6.0)));
-		error.checkThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
-		error.checkThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
+//		error.checkThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		error.checkThat(locacao.getDataLocacao(), ehHoje());
+//		error.checkThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
+		error.checkThat(locacao.getDataRetorno(), ehHojeComDiferencaDias(1));
 	}
 	
 	@Test(expected=FilmeSemEstoqueException.class)
