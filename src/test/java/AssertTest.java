@@ -36,10 +36,10 @@ public class AssertTest {
 		Assert.assertSame(u3, u2);
 		Assert.assertNotSame(u1, u2);
 		
-		Assert.assertTrue(u3 == null);
+		//Assert.assertFalse(u3 == null);
 		// ou
 		
-		Assert.assertNull(u3);
+		//Assert.assertNull(u3);
 		Assert.assertNotNull(u3);
 	
 		

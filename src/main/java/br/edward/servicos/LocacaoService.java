@@ -6,9 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import br.edward.daos.LocacaoDAO;
 import br.edward.entidades.Filme;
 import br.edward.entidades.Locacao;
 import br.edward.entidades.Usuario;
@@ -18,13 +16,9 @@ import br.edward.utils.DataUtils;
 
 public class LocacaoService {
 	
-	public String vPublic;
+	private LocacaoDAO dao;
 	
-	protected String vProtected;
-	
-	private String vPrivate;
-	
-	String vDefault;
+	private SPCService spcService;
 	
 	public Locacao alugarFilme(Usuario usuario, List<Filme> filmes) throws FilmeSemEstoqueException, LocadoraException{
 		
@@ -42,6 +36,9 @@ public class LocacaoService {
 			}
 		}
 		
+		if(spcService.possuiNegativacao(usuario)) {
+			throw new LocadoraException("Usuario negativado");
+		}
 		
 		Locacao locacao = new Locacao();
 		locacao.setFilmes(filmes);
@@ -75,8 +72,18 @@ public class LocacaoService {
 		locacao.setDataRetorno(dataEntrega);
 		
 		//Salvando a locacao...	
-		//TODO adicionar método para salvar
+		//TODO adicionar metodo para salvar
+		
+		dao.salvar(locacao);
 		
 		return locacao;
+	}
+	
+	public void setLocacaoDAO(LocacaoDAO dao) {
+		this.dao = dao;
+	}
+
+	public void setSpcService(SPCService spcService) {
+		this.spcService = spcService;
 	}
 }

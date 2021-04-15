@@ -71,5 +71,24 @@ public class CalculadoraTest {
 		
 		// acao
 		int resultado = calculadora.dividir(i, j);
-	}	
+	}
+	
+	@Test
+	public void deveDividirString() {
+		String a = "6";
+		String b = "3";
+		
+		int resultado = calculadora.divide(a, b);
+		
+		Assert.assertEquals(2, resultado);
+	}
 }
+
+
+
+
+
+
+
+
+
