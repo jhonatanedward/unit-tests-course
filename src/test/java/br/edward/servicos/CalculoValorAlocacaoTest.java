@@ -16,11 +16,9 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import br.edward.daos.LocacaoDAO;
-import br.edward.daos.LocacaoDAOFake;
 import br.edward.entidades.Filme;
 import br.edward.entidades.Locacao;
 import br.edward.entidades.Usuario;
