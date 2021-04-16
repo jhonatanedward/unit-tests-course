@@ -5,6 +5,7 @@ import java.util.Date;
 
 import static br.edward.builders.FilmeBuilder.umFilme;
 import static br.edward.builders.UsuarioBuilder.umUsuario;
+import static br.edward.utils.DataUtils.obterDataComDiferencaDias;
 
 import br.edward.entidades.Filme;
 import br.edward.entidades.Locacao;
@@ -50,6 +51,12 @@ public class LocacaoBuilder {
 
 	public LocacaoBuilder comDataRetorno(Date param) {
 		elemento.setDataRetorno(param);
+		return this;
+	}
+	
+	public LocacaoBuilder atrasado() {
+		elemento.setDataLocacao(obterDataComDiferencaDias(-4));
+		elemento.setDataRetorno(obterDataComDiferencaDias(-2));
 		return this;
 	}
 
