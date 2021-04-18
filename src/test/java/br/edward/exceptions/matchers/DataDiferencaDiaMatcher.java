@@ -1,5 +1,7 @@
 package br.edward.exceptions.matchers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.hamcrest.Description;
@@ -17,7 +19,9 @@ public class DataDiferencaDiaMatcher extends TypeSafeMatcher<Date>{
 	}
 	
 	public void describeTo(Description description) {
-		
+		Date dataEsperada = DataUtils.obterDataComDiferencaDias(quantidade);
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		description.appendText(format.format(dataEsperada));
 	}
 
 	@Override

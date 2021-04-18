@@ -29,13 +29,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
+import br.edward.builders.LocacaoBuilder;
 import br.edward.daos.LocacaoDAO;
 import br.edward.entidades.Filme;
 import br.edward.entidades.Locacao;
@@ -320,7 +320,25 @@ public class LocacaoServiceTest {
 		service.alugarFilme(usuario, filmes);		
 	}
 	
-	
+	@Test
+	public void deveProrrogarUmaLocacao() {
+		// cenario
+		Locacao locacao = LocacaoBuilder.umLocacao().agora();
+		
+		// acao
+		service.prorrogarLocacao(locacao, 3);
+		
+		// verificacao
+		ArgumentCaptor<Locacao> argCapt = ArgumentCaptor.forClass(Locacao.class);
+		
+		Mockito.verify(dao).salvar(argCapt.capture());
+		
+		Locacao locacaoRetornada = argCapt.getValue();
+		
+		error.checkThat(locacaoRetornada.getValor(), is(12.0));
+		error.checkThat(locacaoRetornada.getDataLocacao(), ehHoje());
+		error.checkThat(locacaoRetornada.getDataRetorno(), ehHojeComDiferencaDias(3));
+	}
 }
 
 
