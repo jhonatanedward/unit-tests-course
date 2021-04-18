@@ -5,6 +5,7 @@ import br.edward.exceptions.NaoPodeDividirPorZeroException;
 public class Calculadora {
 
 	public int soma(int a, int b) {
+		System.out.println("Estou executando o método somar..");
 		return a + b;
 	}
 
@@ -23,4 +24,8 @@ public class Calculadora {
 		return Integer.valueOf(a) / Integer.valueOf(b);
 	}
 
+	public void imprime() {
+		System.out.println("Passei aqui");
+	}
+	
 }
